@@ -190,5 +190,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'matheus.santosalmeida.ma9@gmail.com'
-EMAIL_HOST_PASSWORD = 'senhama9'
+EMAIL_HOST_PASSWORD = 'ma9*1234'
 EMAIL_PORT = 587
