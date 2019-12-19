@@ -1,0 +1,8 @@
+iniciar
+sudo docker run -p 6379:6379 -d redis:2.8 
+
+visualizar
+
+sudo docker ps
+
+parar sudo docker  stop {CONTAINER_ID}
