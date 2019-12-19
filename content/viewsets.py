@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework import mixins as rest_mixins
 from .serializers import GroupSerializer, ContentSerializer, MediaSerializer
 from .models import Group, Content, Media
 from rest_framework.decorators import action

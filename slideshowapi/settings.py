@@ -184,3 +184,11 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 CORS_ORIGIN_ALLOW_ALL = True
+
+#EMAIL
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'matheus.santosalmeida.ma9@gmail.com'
+EMAIL_HOST_PASSWORD = 'senhama9'
+EMAIL_PORT = 587

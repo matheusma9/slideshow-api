@@ -13,7 +13,7 @@ class CreateModelMixin:
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        Log.objects.create(user=request.user, action='create', content_object=serializer.instance)
+        #Log.objects.create(user=request.user, action='create', content_object=serializer.instance)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
