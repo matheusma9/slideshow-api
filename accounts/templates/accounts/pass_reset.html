@@ -1,5 +1,4 @@
-{% autoescape off %}
-Hi {{ user.username }},
-Please click on the link to confirm your registration,
-http://{{ domain }}/confirm/{{uid}}/{{token}}
-{% endautoescape %}
+
+Olá {{ user.first_name }},
+Para modificar sua senha clique no link abaixo:
+http://{{ domain }}/reset_password/?uid={{uid}}&token={{token}}

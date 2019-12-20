@@ -150,6 +150,7 @@ class ContentViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
+
 class MediaViewset(viewsets.ModelViewSet):
     """
     Endpoint relacionado as mídias.

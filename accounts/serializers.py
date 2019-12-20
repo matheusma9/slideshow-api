@@ -16,13 +16,18 @@ class UserSerializer(serializers.ModelSerializer):
         username = validated_data.pop('username')
         email = validated_data.pop('email')
         password = validated_data.pop('password')
+        errors = [] 
         if User.objects.filter(username=username).exists():
-            raise serializers.ValidationError('Esse username já existe')
+            errors.append({'username':'Já existe um usuário com esse username'})
 
         if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError('Esse email já existe')    
+            errors.append({'email':'Já existe um usuário com esse email'})
         try:
             validate_password(password)
         except ValidationError as e:
-            raise serializers.ValidationError({'error':list(e)})
+            errors.append({'password':list(e)})
+        if errors:
+            raise serializers.ValidationError({'errors':errors})
         return User.objects.create_user(username=username, email=email, password=password, **validated_data)
+
+

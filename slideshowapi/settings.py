@@ -189,6 +189,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'matheus.santosalmeida.ma9@gmail.com'
+EMAIL_HOST_USER = 'slideshowapi.ma9@gmail.com'
 EMAIL_HOST_PASSWORD = 'ma9*1234'
 EMAIL_PORT = 587
+
+FRONT_END_HOST = '192.168.15.126:4200'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())

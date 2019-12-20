@@ -11,21 +11,42 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from rest_framework import status
+from utils.fields import get_fields
+from django.conf import settings
+from utils.schema_view import CustomSchema
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    Endpoint relacionado aos Usuários.
+    """
     serializer_class = UserSerializer
     queryset = User.objects.all() 
     permission_classes = [IsOwnerOrCreateOnly]
+    schema = CustomSchema()
 
     @action(methods=['post'], detail=False)
     def solicitar(self, request):
-        domain = request.data['domain']
-        to_email = request.data.get('email')
+        """
+        ---
+        method_path:
+         /accounts/solicitar/
+        method_action:
+         POST
+        desc:
+         Solicitar alteração de senha.
+        input:
+        - name: email
+          desc: Email do usuário.
+          type: str
+          required: True
+          location: form
+        """
+        to_email, *_ = get_fields(request.data, ['email'])
         user = get_object_or_404(User, email=to_email)
-        mail_subject = 'Activate your blog account.'
+        mail_subject = 'Solicitação para alteração de senha'
         message = render_to_string('accounts/pass_reset.html', {
             'user': user,
-            'domain': domain,
+            'domain': settings.FRONT_END_HOST,
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':account_activation_token.make_token(user),
         })
@@ -33,23 +54,46 @@ class UserViewSet(viewsets.ModelViewSet):
                     mail_subject, message, to=[to_email]
         )
         email.send()
-        return Response('A solicitação será enviada para o seu email.')
+        return Response({'message':'A solicitação será enviada para o seu email.'})
     
     @action(methods=['post'], detail=False)
     def reset(self, request):
-        uidb64 = request.data.get('uid')
-        token = request.data.get('token')
-        password = request.data.get('password')
+        """
+        ---
+        method_path:
+         /accounts/reset/
+        method_action:
+         POST
+        desc:
+         Alterar senha.
+        input:
+        - name: uid
+          desc: Uid do usuário.
+          type: str
+          required: True
+          location: form
+        - name: token
+          desc: token do usuário.
+          type: str
+          required: True
+          location: form
+        - name: password
+          desc: Nova senha do usuário.
+          type: str
+          required: True
+          location: form
+        """
+        uidb64, token, password = get_fields(request.data, ['uid', 'token', 'password'])
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = get_object_or_404(User, pk=uid)
+        except(TypeError, ValueError, OverflowError):
             user = None
         if user is not None and account_activation_token.check_token(user, token):
             user.set_password(password)
             user.save()
-            return Response('Senha alterada com sucesso')
-        return Response('Token ou uid inválido', status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Senha alterada com sucesso'})
+        return Response({'message':'Token ou uid inválido'}, status=status.HTTP_400_BAD_REQUEST)
 
     
 
