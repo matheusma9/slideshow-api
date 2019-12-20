@@ -24,6 +24,7 @@ from django.conf import settings
 import tv.views as tv_views
 from rest_framework_swagger.views import get_swagger_view
 from accounts.views import LoginView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 schema_view = get_swagger_view(title='SlideShow API')
 
@@ -44,5 +45,5 @@ urlpatterns = [
     path('doc/', schema_view),
     path('login/', LoginView.as_view(), name='login'),
 ]
-urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

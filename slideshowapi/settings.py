@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#^0#)(^_20d(n8@i#m4wk1yt*k=3y9e4j90tk%1vk8_-lz485p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.15.87', 'slideshowma9-api.herokuapp.com']
 
