@@ -43,7 +43,7 @@ class UserViewSet(viewsets.ModelViewSet):
         """
         to_email, *_ = get_fields(request.data, ['email'])
         user = get_object_or_404(User, email=to_email)
-        mail_subject = 'Solicitação para alteração de senha'
+        mail_subject = 'Solicitação para alteração de senha.'
         message = render_to_string('accounts/pass_reset.html', {
             'user': user,
             'domain': settings.FRONT_END_HOST,
