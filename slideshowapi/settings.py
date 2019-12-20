@@ -22,7 +22,7 @@ SECRET_KEY = '#^0#)(^_20d(n8@i#m4wk1yt*k=3y9e4j90tk%1vk8_-lz485p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.15.87']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.15.87', 'slideshowma9-api.herokuapp.com']
 
 
 # Application definition
