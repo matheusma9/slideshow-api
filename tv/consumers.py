@@ -24,6 +24,11 @@ class TvConsumer(WebsocketConsumer):
             self.tv,
             self.channel_name
         )
+    
+    def receive(self, text_data):
+        self.send(text_data=json.dumps({
+            'message': 'mensagem recebida'
+        }))
 
     # Receive message from room group
     def change_message(self, event):

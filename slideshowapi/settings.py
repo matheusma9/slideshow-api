@@ -32,7 +32,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": ['redis://redistogo:35514d0f7ade1caef56560e5c3d88b04@pike.redistogo.com:9490/'],
+            #"hosts": ['redis://redistogo:35514d0f7ade1caef56560e5c3d88b04@pike.redistogo.com:9490/'],
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
@@ -65,9 +66,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #    'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    # ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -99,7 +97,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=900),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=7200),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 
